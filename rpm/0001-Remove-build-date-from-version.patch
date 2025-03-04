@@ -1,0 +1,97 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Matti=20Lehtim=C3=A4ki?= <matti.lehtimaki@jolla.com>
+Date: Tue, 4 Mar 2025 20:04:58 +0200
+Subject: [PATCH] Remove build date from version
+
+---
+ Makefile           | 1 -
+ key.dns_resolver.c | 5 ++---
+ keyctl.c           | 4 ++--
+ keyutils.c         | 1 -
+ keyutils.h         | 1 -
+ request-key.c      | 4 ++--
+ 6 files changed, 6 insertions(+), 10 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 599b1452a05a3d674e9d751ebc8db1fedc3fbd06..95e12702c6b1998715d462bf0c0d880b5dc703d1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -109,7 +109,6 @@ all: keyctl request-key key.dns_resolver cxx
+ ###############################################################################
+ #RPATH = -Wl,-rpath,$(LIBDIR)
+ 
+-VCPPFLAGS	:= -DPKGBUILD="\"$(shell date -u +%F)\""
+ VCPPFLAGS	+= -DPKGVERSION="\"keyutils-$(VERSION)\""
+ VCPPFLAGS	+= -DAPIVERSION="\"libkeyutils-$(APIVERSION)\""
+ 
+diff --git a/key.dns_resolver.c b/key.dns_resolver.c
+index 7a7ec4241ea0eb7d04de1179111fac2adaf03063..2c3a0efafb4ba4b857c4817e224e9775022a44ca 100644
+--- a/key.dns_resolver.c
++++ b/key.dns_resolver.c
+@@ -649,10 +649,9 @@ int main(int argc, char *argv[])
+ 			debug_mode = 1;
+ 			continue;
+ 		case 'V':
+-			printf("version: %s from %s (%s)\n",
++			printf("version: %s\n",
+ 			       DNS_PARSE_VERSION,
+-			       keyutils_version_string,
+-			       keyutils_build_string);
++			       keyutils_version_string);
+ 			exit(0);
+ 		case 'v':
+ 			verbose++;
+diff --git a/keyctl.c b/keyctl.c
+index b1e100e3ae7b72478f8e0df67742b6c7f5682009..147185ae9d0100a551fe6f297a902c3917de8281 100644
+--- a/keyctl.c
++++ b/keyctl.c
+@@ -262,8 +262,8 @@ void format(void)
+  */
+ static void act_keyctl___version(int argc, char *argv[])
+ {
+-	printf("keyctl from %s (Built %s)\n",
+-	       keyutils_version_string, keyutils_build_string);
++	printf("keyctl from %s\n",
++	       keyutils_version_string);
+ 	exit(0);
+ }
+ 
+diff --git a/keyutils.c b/keyutils.c
+index 48b779eac12391ba789dfee103d86b31ef92c608..7c6cf151e29fd8209b2b680a73d121b17106b526 100644
+--- a/keyutils.c
++++ b/keyutils.c
+@@ -22,7 +22,6 @@
+ #include "keyutils.h"
+ 
+ const char keyutils_version_string[] = PKGVERSION;
+-const char keyutils_build_string[] = PKGBUILD;
+ 
+ #ifdef NO_GLIBC_KEYERR
+ static int error_inited;
+diff --git a/keyutils.h b/keyutils.h
+index 3f672bc9dec90c38c7730124f140801bed8e3843..14897195638a84213c0f219caab4d4780e22b4ee 100644
+--- a/keyutils.h
++++ b/keyutils.h
+@@ -20,7 +20,6 @@ extern "C" {
+ #endif
+ 
+ extern const char keyutils_version_string[];
+-extern const char keyutils_build_string[];
+ 
+ /* key serial number */
+ typedef int32_t key_serial_t;
+diff --git a/request-key.c b/request-key.c
+index bf47c0a484269da11cd7fbe7796b9aef5828d5c8..dc6a379d1b6712a60a3a1b265d65dfd43397202a 100644
+--- a/request-key.c
++++ b/request-key.c
+@@ -150,8 +150,8 @@ int main(int argc, char *argv[])
+ 	int ret, ntype, dpos, n, fd, opt;
+ 
+ 	if (argc == 2 && strcmp(argv[1], "--version") == 0) {
+-		printf("request-key from %s (Built %s)\n",
+-		       keyutils_version_string, keyutils_build_string);
++		printf("request-key from %sn",
++		       keyutils_version_string);
+ 		return 0;
+ 	}
+ 
