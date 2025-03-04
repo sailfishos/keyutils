@@ -8,6 +8,7 @@ Summary: Linux Key Management Utilities
 License: GPLv2+ and LGPLv2+
 Url:   https://github.com/sailfishos/keyutils
 Source0: keyutils-%{version}.tar.gz
+Patch1:  0001-Remove-build-date-from-version.patch
 Requires: %{name}-libs = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
