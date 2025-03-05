@@ -25,7 +25,7 @@ index 599b1452a05a3d674e9d751ebc8db1fedc3fbd06..95e12702c6b1998715d462bf0c0d880b
  VCPPFLAGS	+= -DAPIVERSION="\"libkeyutils-$(APIVERSION)\""
  
 diff --git a/key.dns_resolver.c b/key.dns_resolver.c
-index 7a7ec4241ea0eb7d04de1179111fac2adaf03063..2c3a0efafb4ba4b857c4817e224e9775022a44ca 100644
+index 7a7ec4241ea0eb7d04de1179111fac2adaf03063..27c014f0a3a1bf145cd7835ca9ee206e6b1a951b 100644
 --- a/key.dns_resolver.c
 +++ b/key.dns_resolver.c
 @@ -649,10 +649,9 @@ int main(int argc, char *argv[])
@@ -33,7 +33,7 @@ index 7a7ec4241ea0eb7d04de1179111fac2adaf03063..2c3a0efafb4ba4b857c4817e224e9775
  			continue;
  		case 'V':
 -			printf("version: %s from %s (%s)\n",
-+			printf("version: %s\n",
++			printf("version: %s from %s\n",
  			       DNS_PARSE_VERSION,
 -			       keyutils_version_string,
 -			       keyutils_build_string);
@@ -81,7 +81,7 @@ index 3f672bc9dec90c38c7730124f140801bed8e3843..14897195638a84213c0f219caab4d478
  /* key serial number */
  typedef int32_t key_serial_t;
 diff --git a/request-key.c b/request-key.c
-index bf47c0a484269da11cd7fbe7796b9aef5828d5c8..dc6a379d1b6712a60a3a1b265d65dfd43397202a 100644
+index bf47c0a484269da11cd7fbe7796b9aef5828d5c8..15ddcb95cb99142c0bafcb78b549592e4f28ee3f 100644
 --- a/request-key.c
 +++ b/request-key.c
 @@ -150,8 +150,8 @@ int main(int argc, char *argv[])
@@ -90,7 +90,7 @@ index bf47c0a484269da11cd7fbe7796b9aef5828d5c8..dc6a379d1b6712a60a3a1b265d65dfd4
  	if (argc == 2 && strcmp(argv[1], "--version") == 0) {
 -		printf("request-key from %s (Built %s)\n",
 -		       keyutils_version_string, keyutils_build_string);
-+		printf("request-key from %sn",
++		printf("request-key from %s\n",
 +		       keyutils_version_string);
  		return 0;
  	}
